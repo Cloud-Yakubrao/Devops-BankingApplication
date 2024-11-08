@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bankapplication
+  labels:
+    app: prodbank
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prodbank
+  template:
+    metadata:
+      labels:
+        app: prodbank
+    spec:
+      containers:
+      - name: springbankapplication
+        image: dockeradmin1996/springbootbankapp
+        ports:
+        - containerPort: 8080
+        env:
+          - name: SPRING_DATASOURCE_USERNAME
+            valueFrom:
+             configMapKeyRef:
+              name: appbank
+              key: SPRING_DATASOURCE_USERNAME
+          - name: SPRING_DATASOURCE_URL
+            valueFrom:
+              configMapKeyRef:
+               name: appbank
+               key: SPRING_DATASOURCE_URL
+          - name: SPRING_DATASOURCE_PASSWORD
+            valueFrom:
+             configMapKeyRef:
+               name: appbank
+               key: SPRING_DATASOURCE_PASSWORD
+~                                             
