@@ -1,0 +1,23 @@
+metadata:
+  name: mysql-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:8  # You can specify a different version if needed
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: Test@123  # Change this to a strong password
+        - name: MYSQL_DATABASE
+          value: BankDB    # Optional: specify a default database
+        ports:
+         - containerPort: 3306
+           name: mysql
